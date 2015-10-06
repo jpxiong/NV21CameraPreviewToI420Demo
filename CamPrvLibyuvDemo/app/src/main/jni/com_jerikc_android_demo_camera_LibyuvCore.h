@@ -10,18 +10,18 @@ extern "C" {
 /*
  * Class:     com_jerikc_android_demo_camera_LibyuvCore
  * Method:    ConvertToI420
- * Signature: ([BII)V
+ * Signature: ([BLandroid.hardware.Camera.CameraInfo;)V
  */
 JNIEXPORT void JNICALL Java_com_jerikc_android_demo_camera_LibyuvCore_ConvertToI420
-  (JNIEnv *, jobject, jbyteArray, jint, jint);
+  (JNIEnv *, jobject, jbyteArray, jobject);
 
 /*
  * Class:     com_jerikc_android_demo_camera_LibyuvCore
  * Method:    init
- * Signature: (Ljava/lang/String;)V
+ * Signature: (IIIILjava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_com_jerikc_android_demo_camera_LibyuvCore_init
-  (JNIEnv *, jobject, jstring);
+  (JNIEnv *, jobject, jint, jint, jint, jint, jstring);
 
 /*
  * Class:     com_jerikc_android_demo_camera_LibyuvCore

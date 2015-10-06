@@ -43,7 +43,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
         mPreviewCallback = new PreviewCallback();
         mLibyuvCore = new LibyuvCore();
-        mLibyuvCore.init(FILE_NAME);
+
 
     }
 
@@ -67,14 +67,28 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             mCamera.setPreviewDisplay(holder);
             adjustCameraOrientation();
 
+            int width = 640;
+            int height = 480;
+
             Camera.Parameters params = mCamera.getParameters();
             params.setPreviewFormat(ImageFormat.NV21);
-            params.setPreviewSize(640, 480);
+            params.setPreviewSize(width, height);
             mCamera.setParameters(params);
-            int width = params.getPreviewSize().width;
-            int height = params.getPreviewSize().height;
-            Log.i(TAG, "width:" + width + ", height:" + height);
-            int previewBufferSize =  width * height;
+
+            if (!Util.isLandscape(mContext)) {
+                // port
+                int temp = width;
+                width = height;
+                height = temp;
+            }
+
+            int prvWidth = params.getPreviewSize().width;
+            int prvHeight = params.getPreviewSize().height;
+            mLibyuvCore.init(prvWidth, prvHeight, width, height, FILE_NAME);
+
+            Log.i(TAG, "width:" + width + ", height:" + height + ",prvWidth:" + prvWidth + ",prvHeight:" + prvHeight);
+
+            int previewBufferSize = prvWidth * prvHeight + (prvWidth * prvHeight + 1) / 2;
 
             for (int i = 0; i < 3; i++) {
                 mCamera.addCallbackBuffer(ByteBuffer.allocateDirect(previewBufferSize).array());
@@ -134,7 +148,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             if (data == null) {
                 return;
             }
-            mLibyuvCore.ConvertToI420(data, camera.getParameters().getPreviewSize().width, camera.getParameters().getPreviewSize().height);
+            mLibyuvCore.ConvertToI420(data, mCameraInfo);
             camera.addCallbackBuffer(data);
         }
     }

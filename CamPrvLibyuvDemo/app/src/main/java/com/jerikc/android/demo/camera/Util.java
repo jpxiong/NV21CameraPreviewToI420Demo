@@ -1,6 +1,9 @@
 package com.jerikc.android.demo.camera;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Point;
+import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
 
@@ -29,5 +32,23 @@ public class Util {
                 return 270;
         }
         return 0;
+    }
+
+    public static Point getScreenSize(Context context) {
+        Point size = new Point();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        display.getSize(size);
+        return size;
+    }
+
+    public static boolean isLandscape(Context ctx) {
+        Point size = getScreenSize(ctx);
+        if (size.x > size.y) {
+            // land
+            return true;
+        }
+        // port
+        return false;
     }
 }
