@@ -1,8 +1,8 @@
 # NV21CameraPreviewToI420Demo
-A android demo which covert camera preview data in NV21 format to I420 by libyuv
+The demo is an android project which covert camera preview data in NV21 format to I420 by libyuv.
 
 ## Description
-There is a `test.yuv` in yuv420p format generated under `/sdcard/` path:
+The `test.yuv` file in yuv420p format will be generated under `/sdcard/` path:
 
 ```
 private static final String FILE_NAME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/test.yuv";
