@@ -1,0 +1,3 @@
+[submodule "CamPrvLibyuvDemo/app/src/main/jni/libyuv"]
+	path = CamPrvLibyuvDemo/app/src/main/jni/libyuv
+	url = https://github.com/jpxiong/libyuv.git
